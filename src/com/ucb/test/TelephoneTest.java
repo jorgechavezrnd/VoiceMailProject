@@ -16,25 +16,32 @@ import com.ucb.main.Connection;
 import com.ucb.main.Telephone;
 
 class TelephoneTest {
+	private Telephone mockTelephone;
 	private Telephone telephone;
 	private PrintStream mockOut;
 	private Connection mockConnection;
 
 	@BeforeEach
 	public void setUp() throws Exception {
+		mockTelephone = mock(Telephone.class);
 		mockOut = mock(PrintStream.class);
 		mockConnection = mock(Connection.class);
 		
 		System.setOut(mockOut);
 		
+		when(mockTelephone.getScannerNextLine()).thenReturn(null);
+		Mockito.doCallRealMethod().when(mockTelephone).run(any(Connection.class));
+		
 		doNothing().when(mockConnection).hangup();
 		doNothing().when(mockConnection).dial(anyString());
 		doNothing().when(mockConnection).record(anyString());
+		
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
 		System.setOut(System.out);
+		System.setIn(System.in);
 	}
 
 	@Test
@@ -101,12 +108,7 @@ class TelephoneTest {
 	
 	@Test
 	public void shouldGiveTheValueOfNullToInput() {
-		telephone = mock(Telephone.class);
-		
-		when(telephone.getScannerNextLine()).thenReturn(null);
-		Mockito.doCallRealMethod().when(telephone).run(any(Connection.class));
-		
-		telephone.run(mockConnection);
+		mockTelephone.run(mockConnection);
 		
 		verify(mockConnection, never()).hangup();
 		verify(mockConnection, never()).dial(anyString());
