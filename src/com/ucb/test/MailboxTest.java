@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.ucb.main.Mailbox;
+import com.ucb.main.Message;
 
 class MailboxTest {
 	private Mailbox mailbox;
@@ -55,6 +56,30 @@ class MailboxTest {
 		String actual = mailbox.getGreeting();
 		
 		assertEquals(newGreeting, actual);
+	}
+	
+	@Test
+	public void shouldAddMessageToNewMessages() {
+		Message message = new Message("messageText");
+		mailbox.addMessage(message);
+		
+		assertEquals(message, mailbox.getCurrentMessage());
+	}
+	
+	@Test
+	public void shouldSaveCurrentMessageToKeptMessages() {
+		Message message = new Message("messageText");
+		mailbox.addMessage(message);
+		mailbox.saveCurrentMessage();
+		
+		assertEquals(message, mailbox.getCurrentMessage());
+	}
+	
+	@Test
+	public void shouldReturnNullWithGetCurrentMessage() {
+		mailbox.saveCurrentMessage();
+		
+		assertEquals(null, mailbox.getCurrentMessage());
 	}
 	
 }
