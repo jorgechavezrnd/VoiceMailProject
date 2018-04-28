@@ -10,12 +10,12 @@ import com.ucb.main.MailSystem;
 import com.ucb.main.Mailbox;
 
 class MailSystemTest {
-	private MailSystem mailSystemNotEmpty;
+	private MailSystem mailSystem;
 	Mailbox mailbox2;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		mailSystemNotEmpty = new MailSystem(5);
+		mailSystem = new MailSystem(5);
 		String passcode = "" + 2;
         String greeting = "You have reached mailbox " + 2
               + ". \nPlease leave a message now.";
@@ -24,9 +24,19 @@ class MailSystemTest {
 
 	@Test
 	void shouldReturnTheMailboxThatIAsk() {
-		Mailbox actual = mailSystemNotEmpty.findMailbox("2");
+		Mailbox actual = mailSystem.findMailbox("2");
 		
 		assertEquals(mailbox2.getGreeting(), actual.getGreeting());
+	}
+	
+	@Test
+	public void shouldReturnNullWithNonExistentMailbox() {
+		assertNull(mailSystem.findMailbox("6"));
+	}
+	
+	@Test
+	public void shouldReturnNullWithNegativeNumber() {
+		assertNull(mailSystem.findMailbox("-1"));
 	}
 
 }
