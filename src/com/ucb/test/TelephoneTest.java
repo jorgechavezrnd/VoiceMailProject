@@ -1,6 +1,5 @@
 package com.ucb.test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
@@ -11,6 +10,7 @@ import java.util.Scanner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.ucb.main.Connection;
 import com.ucb.main.Telephone;
@@ -39,7 +39,7 @@ class TelephoneTest {
 
 	@Test
 	public void shouldPrintTestRunningWithSpeak() {
-		telephone = new Telephone(new Scanner(System.in));
+		telephone = new Telephone();
 		String output = "Test running";
 		
 		telephone.speak(output);
@@ -97,6 +97,20 @@ class TelephoneTest {
 		telephone.run(mockConnection);
 		
 		verify(mockConnection).record(anyString());
+	}
+	
+	@Test
+	public void shouldGiveTheValueOfNullToInput() {
+		telephone = mock(Telephone.class);
+		
+		when(telephone.getScannerNextLine()).thenReturn(null);
+		Mockito.doCallRealMethod().when(telephone).run(any(Connection.class));
+		
+		telephone.run(mockConnection);
+		
+		verify(mockConnection, never()).hangup();
+		verify(mockConnection, never()).dial(anyString());
+		verify(mockConnection, never()).record(anyString());
 	}
 	
 	private Scanner getScannerWithText(String text) {

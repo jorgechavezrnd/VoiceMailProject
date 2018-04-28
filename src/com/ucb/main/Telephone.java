@@ -7,6 +7,9 @@ import java.util.Scanner;
 */
 public class Telephone
 {
+	public Telephone() {
+		scanner = new Scanner(System.in);
+	}
    /**
       Construct phone object.
       @param aScanner that reads text from a character-input stream
@@ -36,7 +39,7 @@ public class Telephone
       boolean more = true;
       while (more)
       {
-         String input = scanner.nextLine();
+         String input = getScannerNextLine();
          if (input == null) return;
          if (input.equalsIgnoreCase("H"))
             c.hangup();
@@ -49,6 +52,10 @@ public class Telephone
             c.record(input);
       }
    }
+
+	public String getScannerNextLine() {
+		return scanner.nextLine();
+	}
 
    private Scanner scanner;
 }
