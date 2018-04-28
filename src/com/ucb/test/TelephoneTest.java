@@ -57,6 +57,18 @@ class TelephoneTest {
 		verify(mockConnection).hangup();
 	}
 	
+	@Test
+	public void shouldGiveTheValueOfNullToMore() {
+		Scanner scanner = getScannerWithText("Q");
+		telephone = new Telephone(scanner);
+		
+		telephone.run(mockConnection);
+		
+		verify(mockConnection, never()).hangup();
+		verify(mockConnection, never()).dial(anyString());
+		verify(mockConnection, never()).record(anyString());
+	}
+	
 	private Scanner getScannerWithText(String text) {
 		text += "\nQ";
 		
