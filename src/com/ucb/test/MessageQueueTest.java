@@ -10,34 +10,36 @@ import com.ucb.main.Message;
 import com.ucb.main.MessageQueue;
 
 class MessageQueueTest {
-	private MessageQueue messageQueue;
+	private MessageQueue messageQueueEmpty;
+	private MessageQueue messageQueueNotEmpty;
 	private Message message1;
 	private Message message2;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		messageQueue = new MessageQueue();
+		messageQueueEmpty = new MessageQueue();
+		messageQueueNotEmpty = new MessageQueue();
 		message1 = new Message("message 1");
 		message2 = new Message("message 2");
 		
-		messageQueue.add(message1);
-		messageQueue.add(message2);
+		messageQueueNotEmpty.add(message1);
+		messageQueueNotEmpty.add(message2);
 	}
 
 	@Test
 	public void shouldRemoveTheFirstMessageOfTheQueue() {
 		Message expected = message1;
-		Message actual = messageQueue.remove();
+		Message actual = messageQueueNotEmpty.remove();
 		
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void shouldDecreaseTheSizeOfTheQueueByRemovingAMessage() {
-		messageQueue.remove();
+		messageQueueNotEmpty.remove();
 		
 		int expected = 1;
-		int actual = messageQueue.size();
+		int actual = messageQueueNotEmpty.size();
 		
 		assertEquals(expected, actual);
 	}
@@ -45,10 +47,10 @@ class MessageQueueTest {
 	@Test
 	public void shouldAddAMessageToTheQueue() {
 		Message message3 = new Message("message 3");
-		messageQueue.add(message3);
+		messageQueueNotEmpty.add(message3);
 		
 		int expected = 3;
-		int actual = messageQueue.size();
+		int actual = messageQueueNotEmpty.size();
 		
 		assertEquals(expected, actual);
 	}
@@ -56,7 +58,7 @@ class MessageQueueTest {
 	@Test
 	public void shouldReturnTheSizeOfTheMessageQueue() {
 		int expected = 2;
-		int actual = messageQueue.size();
+		int actual = messageQueueNotEmpty.size();
 		
 		assertEquals(expected, actual);
 	}
@@ -64,18 +66,15 @@ class MessageQueueTest {
 	@Test
 	public void shouldReturnMessage1WithPeek() {
 		Message expected = message1;
-		Message actual = messageQueue.peek();
+		Message actual = messageQueueNotEmpty.peek();
 		
 		assertEquals(expected, actual);
 	}
 	
 	@Test
-	public void shouldReturnNullWithPeek() {
-		messageQueue.remove();
-		messageQueue.remove();
-		
+	public void shouldReturnNullWithPeek() {		
 		Message expected = null;
-		Message actual = messageQueue.peek();
+		Message actual = messageQueueEmpty.peek();
 		
 		assertEquals(expected, actual);
 	}
