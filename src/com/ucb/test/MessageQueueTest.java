@@ -15,7 +15,7 @@ class MessageQueueTest {
 	private Message message2;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		messageQueue = new MessageQueue();
 		message1 = new Message("message 1");
 		message2 = new Message("message 2");
@@ -25,11 +25,17 @@ class MessageQueueTest {
 	}
 
 	@Test
-	void shouldRemoveTheFirstMessageOfTheQueue() {
+	public void shouldRemoveTheFirstMessageOfTheQueue() {
 		Message expected = message1;
 		Message actual = messageQueue.remove();
 		
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void shouldDecreaseTheSizeOfTheQueueByRemovingAMessage() {
+		messageQueue.remove();
+		
+		assertEquals(1, messageQueue.size());
+	}
 }
