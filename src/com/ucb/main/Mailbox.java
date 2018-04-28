@@ -1,3 +1,4 @@
+package com.ucb.main;
 /**
    A mailbox contains messages that can be listed, kept or discarded.
 */

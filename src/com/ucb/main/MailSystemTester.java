@@ -1,3 +1,4 @@
+package com.ucb.main;
 import java.util.Scanner;
 
 /**
