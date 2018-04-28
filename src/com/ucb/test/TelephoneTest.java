@@ -10,17 +10,24 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.ucb.main.Connection;
 import com.ucb.main.Telephone;
 
 class TelephoneTest {
 	private Telephone telephone;
 	private PrintStream mockOut;
+	private Connection mockConnection;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		mockOut = mock(PrintStream.class);
+		mockConnection = mock(Connection.class);
 		
 		System.setOut(mockOut);
+		
+		doNothing().when(mockConnection).hangup();
+		doNothing().when(mockConnection).dial(anyString());
+		doNothing().when(mockConnection).record(anyString());
 	}
 
 	@AfterEach
