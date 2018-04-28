@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,13 +14,13 @@ import com.ucb.main.Telephone;
 
 class TelephoneTest {
 	private Telephone telephone;
-	private PrintStream out;
+	private PrintStream mockOut;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		out = mock(PrintStream.class);
+		mockOut = mock(PrintStream.class);
 		
-		System.setOut(out);
+		System.setOut(mockOut);
 	}
 
 	@AfterEach
@@ -28,8 +29,13 @@ class TelephoneTest {
 	}
 
 	@Test
-	void test() {
+	void shouldPrintTestRunningWithSpeak() {
+		telephone = new Telephone(new Scanner(System.in));
+		String output = "Test running";
 		
+		telephone.speak(output);
+		
+		verify(mockOut).println(output);
 	}
 
 }
