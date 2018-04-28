@@ -3,6 +3,8 @@ package com.ucb.test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -36,13 +38,32 @@ class TelephoneTest {
 	}
 
 	@Test
-	void shouldPrintTestRunningWithSpeak() {
+	public void shouldPrintTestRunningWithSpeak() {
 		telephone = new Telephone(new Scanner(System.in));
 		String output = "Test running";
 		
 		telephone.speak(output);
 		
 		verify(mockOut).println(output);
+	}
+	
+	@Test
+	public void shouldRunConnectionHungup() {
+		Scanner scanner = getScannerWithText("H");
+		telephone = new Telephone(scanner);
+		
+		telephone.run(mockConnection);
+		
+		verify(mockConnection).hangup();
+	}
+	
+	private Scanner getScannerWithText(String text) {
+		text += "\nQ";
+		
+		InputStream inputStream = new ByteArrayInputStream(text.getBytes());
+		System.setIn(inputStream);
+		
+		return new Scanner(System.in);
 	}
 
 }
