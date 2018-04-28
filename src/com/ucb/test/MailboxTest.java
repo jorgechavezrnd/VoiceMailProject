@@ -14,21 +14,29 @@ class MailboxTest {
 	private String greeting;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		passcode = "myPasscode";
 		greeting = "myGreeting";
 		mailbox = new Mailbox(passcode, greeting);
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 	}
 
 	@Test
-	void shouldCheckPasscode() {
+	public void shouldCheckPasscode() {
 		boolean condition = mailbox.checkPasscode(passcode);
 		
 		assertTrue(condition);
+	}
+	
+	@Test
+	public void shouldReturnGreeting() {
+		String expected = greeting;
+		String actual = mailbox.getGreeting();
+		
+		assertEquals(expected, actual);
 	}
 
 }
