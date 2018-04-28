@@ -79,6 +79,16 @@ class TelephoneTest {
 		verify(mockConnection).dial(anyString());
 	}
 	
+	@Test
+	public void shouldRunConnectionRecord() {
+		Scanner scanner = getScannerWithText("X");
+		telephone = new Telephone(scanner);
+		
+		telephone.run(mockConnection);
+		
+		verify(mockConnection).record(anyString());
+	}
+	
 	private Scanner getScannerWithText(String text) {
 		text += "\nQ";
 		
