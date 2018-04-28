@@ -68,4 +68,15 @@ class MessageQueueTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldReturnNullWithPeek() {
+		messageQueue.remove();
+		messageQueue.remove();
+		
+		Message expected = null;
+		Message actual = messageQueue.peek();
+		
+		assertEquals(expected, actual);
+	}
 }
