@@ -82,4 +82,20 @@ class MailboxTest {
 		assertEquals(null, mailbox.getCurrentMessage());
 	}
 	
+	@Test
+	public void shouldRemoveCurrentMessageToKeptMessages() {
+		Message message = new Message("messageText");
+		mailbox.addMessage(message);
+		mailbox.saveCurrentMessage();
+		
+		assertEquals(message, mailbox.removeCurrentMessage());
+	}
+	
+	@Test
+	public void shouldReturnNullWithRemoveCurrentMessage() {
+		mailbox.saveCurrentMessage();
+		
+		assertEquals(null, mailbox.getCurrentMessage());
+	}
+	
 }
