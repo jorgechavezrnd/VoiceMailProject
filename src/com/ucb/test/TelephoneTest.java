@@ -89,6 +89,16 @@ class TelephoneTest {
 		verify(mockConnection).record(anyString());
 	}
 	
+	@Test
+	public void shouldRunConnectionRecordWithInputSizeGreaterThanOne() {
+		Scanner scanner = getScannerWithText("12");
+		telephone = new Telephone(scanner);
+		
+		telephone.run(mockConnection);
+		
+		verify(mockConnection).record(anyString());
+	}
+	
 	private Scanner getScannerWithText(String text) {
 		text += "\nQ";
 		
