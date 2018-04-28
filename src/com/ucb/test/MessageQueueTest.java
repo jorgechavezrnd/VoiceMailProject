@@ -52,4 +52,12 @@ class MessageQueueTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldReturnTheSizeOfTheMessageQueue() {
+		int expected = 2;
+		int actual = messageQueue.size();
+		
+		assertEquals(expected, actual);
+	}
 }
