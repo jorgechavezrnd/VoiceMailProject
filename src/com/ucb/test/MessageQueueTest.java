@@ -36,6 +36,20 @@ class MessageQueueTest {
 	public void shouldDecreaseTheSizeOfTheQueueByRemovingAMessage() {
 		messageQueue.remove();
 		
-		assertEquals(1, messageQueue.size());
+		int expected = 1;
+		int actual = messageQueue.size();
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void shouldAddAMessageToTheQueue() {
+		Message message3 = new Message("message 3");
+		messageQueue.add(message3);
+		
+		int expected = 3;
+		int actual = messageQueue.size();
+		
+		assertEquals(expected, actual);
 	}
 }
