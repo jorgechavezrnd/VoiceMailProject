@@ -60,4 +60,12 @@ class MessageQueueTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldReturnMessage1WithPeek() {
+		Message expected = message1;
+		Message actual = messageQueue.peek();
+		
+		assertEquals(expected, actual);
+	}
 }
