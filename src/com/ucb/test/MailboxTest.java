@@ -47,5 +47,14 @@ class MailboxTest {
 		
 		assertTrue(condition);
 	}
-
+	
+	@Test
+	public void shouldSetNewGreeting() {
+		String newGreeting = "myNewGreeting";
+		mailbox.setGreeting(newGreeting);
+		String actual = mailbox.getGreeting();
+		
+		assertEquals(newGreeting, actual);
+	}
+	
 }
