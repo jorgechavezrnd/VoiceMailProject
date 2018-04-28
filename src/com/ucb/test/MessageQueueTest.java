@@ -13,23 +13,23 @@ class MessageQueueTest {
 	private MessageQueue messageQueue;
 	private Message message1;
 	private Message message2;
-	private Message message3;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		messageQueue = new MessageQueue();
 		message1 = new Message("message 1");
 		message2 = new Message("message 2");
-		message3 = new Message("message 3");
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+		
+		messageQueue.add(message1);
+		messageQueue.add(message2);
 	}
 
 	@Test
-	void test() {
+	void shouldRemoveTheFirstMessageOfTheQueue() {
+		Message expected = message1;
+		Message actual = messageQueue.remove();
 		
+		assertEquals(expected, actual);
 	}
 
 }
