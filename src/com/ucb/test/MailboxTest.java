@@ -38,5 +38,14 @@ class MailboxTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void shouldSetNewPasscode() {
+		String newPasscode = "myNewPasscode";
+		mailbox.setPasscode(newPasscode);
+		boolean condition = mailbox.checkPasscode(newPasscode);
+		
+		assertTrue(condition);
+	}
 
 }
